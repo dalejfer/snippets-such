@@ -106,6 +106,15 @@ ffmpeg -i derpdog.mp4 -filter_complex \
 -map "[v]" -map 0:a -c:v libx264 -c:a copy -movflags +faststart derpdogblur.mp4
 ```
 
+[source, superuser](https://superuser.com/questions/901099/ffmpeg-apply-blur-over-face)
+
+
+### subtitles
+
+ffmpeg -ss 5:00.00 -copyts -i video.avi -ss 5:00.00 -vf subtitles=subtitles.srt out.avi
+
+https://trac.ffmpeg.org/wiki/HowToBurnSubtitlesIntoVideo
+
 
 ## join several videos into one
 
@@ -119,7 +128,7 @@ file '/path/to/file2'
 file '/path/to/file3'
 ```
 
-then ejecute:  
+then execute:  
 
 ```
 ffmpeg -f concat -safe 0 -i mylist.txt -c copy output
