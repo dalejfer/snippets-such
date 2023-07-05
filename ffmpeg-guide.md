@@ -118,6 +118,8 @@ https://trac.ffmpeg.org/wiki/HowToBurnSubtitlesIntoVideo
 
 ## join several videos into one
 
+### concat demuxer
+
 first crate a file `mylist.txt`:
 
 ```txt
@@ -133,6 +135,25 @@ then execute:
 ```
 ffmpeg -f concat -safe 0 -i mylist.txt -c copy output
 ```
+
+### concat video filter
+
+**3 videos with audio**
+
+```powershell
+ffmpeg -i opening.mkv -i episode.mkv -i ending.mkv \
+-filter_complex "[0:v] [0:a] [1:v] [1:a] [2:v] [2:a] \
+concat=n=3:v=1:a=1 [v] [a]" \
+-map "[v]" -map "[a]" output.mp4
+```
+
+**2 videos with no audio**
+
+```powershell
+ffmpeg -i .\1.mp4 -i .\2.mp4 -filter_complex "[0:v] [1:v] concat=n=2:v=1 [v]" -map "[v]" -an output.mp4
+```
+
+source: https://stackoverflow.com/questions/7333232/how-to-concatenate-two-mp4-files-using-ffmpeg
 
 ## slideshow with images
 
